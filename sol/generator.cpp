@@ -122,7 +122,7 @@ int main (int argc, char** argv) {
             generateSubtask(i, j, (float)j / (float)(tasks - 1));
         }
     }
-    if (hasSubtasks) {
+    if (hasSubtasks && !manualSubtasks) {
         std::cout << "DONT FORGET TO EDIT gen/GEN FILE !!!!!!\n";
     }
 }
