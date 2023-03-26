@@ -5,6 +5,31 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
+#ifdef _WIN32
+#define SEP "\\"
+#else
+#define SEP "/"
+#endif
+
+#ifdef APPEND_ONE_MORE_BACKDIR
+#define BACKDIR ".." SEP
+#else
+#define BACKDIR ""
+#endif
+
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+
+#ifndef SOURCE_PATH
+#define SOURCE_PATH_FULL ""
+#else
+#define SOURCE_PATH_FULL TOSTRING(SOURCE_PATH) SEP
+#endif
+
+#ifndef SOLUTION_EXE_PATH
+#define SOLUTION_EXE_PATH_FULL "." SEP "main"
+#endif
+
 void makeTest(std::ofstream& inputFile, int subtask, int testcase, float testPercent);
 void testInit(int argc, char** argv);
 
@@ -30,14 +55,9 @@ int globalCount;
 bool manualSubtasks;
 std::ofstream genFile;
 
-#ifdef _WIN32
-#define SEP "\\"
-#else
-#define SEP "/"
-#endif
-
 void generateSubtask(int subtask, int testcase, float testPercent) {
     std::stringstream inputFileName;
+    inputFileName << SOURCE_PATH_FULL;
     if (!manualSubtasks) {
         inputFileName << ".." SEP "input" SEP "input" << globalCount << ".txt";
     } else {
@@ -50,6 +70,7 @@ void generateSubtask(int subtask, int testcase, float testPercent) {
     inputFile.close();
 
     std::stringstream outputFileName;
+    outputFileName << SOURCE_PATH_FULL;
     
     if (!manualSubtasks) {
         outputFileName << ".." SEP "output" SEP "output" << globalCount << ".txt";
@@ -59,13 +80,17 @@ void generateSubtask(int subtask, int testcase, float testPercent) {
     }
     
     globalCount++;
-    std::string outputCommand = "." SEP "main <\"" + inputFileName.str() + "\" >\"" + outputFileName.str() + "\"";
+    std::string outputCommand = SOLUTION_EXE_PATH_FULL
+        " <\"" + inputFileName.str() + "\""
+        " >\"" + outputFileName.str() + "\"";
     MEASURE_TIME(system(outputCommand.c_str()));
 }
 
 int main (int argc, char** argv) {
     testInit(argc, argv);
-    std::ifstream config("../sol/config.txt");
+    std::string configFname = BACKDIR "../sol/config.txt";
+    std::cout << "Read " << configFname << std::endl;
+    std::ifstream config(configFname);
     if (config.bad()) {
         std::cout << 
             "Please make sure config.txt exists with number of "
@@ -77,14 +102,14 @@ int main (int argc, char** argv) {
     }
     std::string countType;
     config >> countType;
-    if (fs::exists("../gen/GEN")) {
-        fs::remove("../gen/GEN");
+    if (fs::exists(SOURCE_PATH_FULL "../gen/GEN")) {
+        fs::remove(SOURCE_PATH_FULL "../gen/GEN");
     }
     if (countType == "global_count") {
         hasSubtasks = false;
     } else if (countType == "subtask_count") {
         hasSubtasks = true;
-        system("mkdir .." SEP "gen");
+        system("mkdir " SOURCE_PATH_FULL ".." SEP "gen");
         genFile.open("..gen/GEN");
     } else if (countType == "manual_subtasks") {
         hasSubtasks = true;
@@ -95,10 +120,10 @@ int main (int argc, char** argv) {
         return 1;
     }
     if (!manualSubtasks) {
-        system("mkdir .." SEP "input");
-        system("mkdir .." SEP "output");
+        system("mkdir " SOURCE_PATH_FULL ".." SEP "input");
+        system("mkdir " SOURCE_PATH_FULL ".." SEP "output");
     } else {
-        system("mkdir .." SEP "tests");
+        system("mkdir " SOURCE_PATH_FULL ".." SEP "tests");
     }
     unsigned subtasks;
     config >> subtasks;
