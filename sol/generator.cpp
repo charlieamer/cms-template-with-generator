@@ -90,8 +90,7 @@ int main (int argc, char** argv) {
     testInit(argc, argv);
     std::string configFname = BACKDIR "../sol/config.txt";
     std::cout << "Read " << configFname << std::endl;
-    std::ifstream config(configFname);
-    if (config.bad()) {
+    if (!fs::exists(configFname)) {
         std::cout << 
             "Please make sure config.txt exists with number of "
             "subtasks (first number) followed by number of tasks "
@@ -100,6 +99,7 @@ int main (int argc, char** argv) {
             "subtask).";
         return 1;
     }
+    std::ifstream config(configFname);
     std::string countType;
     config >> countType;
     if (fs::exists(SOURCE_PATH_FULL "../gen/GEN")) {
