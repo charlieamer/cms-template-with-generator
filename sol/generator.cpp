@@ -110,7 +110,7 @@ int main (int argc, char** argv) {
     } else if (countType == "subtask_count") {
         hasSubtasks = true;
         system("mkdir " SOURCE_PATH_FULL ".." SEP "gen");
-        genFile.open("..gen/GEN");
+        genFile.open(SOURCE_PATH_FULL "../gen/GEN");
     } else if (countType == "manual_subtasks") {
         hasSubtasks = true;
         manualSubtasks = true;
