@@ -109,7 +109,7 @@ int main (int argc, char** argv) {
         hasSubtasks = false;
     } else if (countType == "subtask_count") {
         hasSubtasks = true;
-        system("mkdir " SOURCE_PATH_FULL ".." SEP "gen");
+        system("mkdir \"" SOURCE_PATH_FULL "\".." SEP "gen");
         genFile.open(SOURCE_PATH_FULL "../gen/GEN");
     } else if (countType == "manual_subtasks") {
         hasSubtasks = true;
@@ -120,10 +120,10 @@ int main (int argc, char** argv) {
         return 1;
     }
     if (!manualSubtasks) {
-        system("mkdir " SOURCE_PATH_FULL ".." SEP "input");
-        system("mkdir " SOURCE_PATH_FULL ".." SEP "output");
+        system("mkdir \"" SOURCE_PATH_FULL "\".." SEP "input");
+        system("mkdir \"" SOURCE_PATH_FULL "\".." SEP "output");
     } else {
-        system("mkdir " SOURCE_PATH_FULL ".." SEP "tests");
+        system("mkdir \"" SOURCE_PATH_FULL "\".." SEP "tests");
     }
     unsigned subtasks;
     config >> subtasks;
