@@ -83,7 +83,13 @@ void generateSubtask(int subtask, int testcase, float testPercent) {
     std::string outputCommand = SOLUTION_EXE_PATH_FULL
         " <\"" + inputFileName.str() + "\""
         " >\"" + outputFileName.str() + "\"";
-    MEASURE_TIME(system(outputCommand.c_str()));
+
+    int callResult;
+    MEASURE_TIME(callResult = system(outputCommand.c_str()));
+    if (callResult != 0) {
+        std::cerr << "The solution crashed: " << callResult << std::endl;
+        exit(callResult);
+    }
 }
 
 int main (int argc, char** argv) {
