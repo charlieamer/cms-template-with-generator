@@ -13,4 +13,13 @@ target_compile_definitions(generator PRIVATE SOURCE_PATH=${SOL_DIR})
 
 if(MSVC)
   target_compile_definitions(generator PRIVATE APPEND_ONE_MORE_BACKDIR)
+  set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
+  target_compile_options(main [PUBLIC|PRIVATE] /MT)
+  target_link_options(main [PUBLIC|PRIVATE] /INCREMENTAL:NO /NODEFAULTLIB:MSVCRT)
+  target_compile_options(generator [PUBLIC|PRIVATE] /MT)
+  target_link_options(generator [PUBLIC|PRIVATE] /INCREMENTAL:NO /NODEFAULTLIB:MSVCRT)
+else()
+  target_link_libraries(main -static)
+  target_link_libraries(generator -static)
 endif()
+
