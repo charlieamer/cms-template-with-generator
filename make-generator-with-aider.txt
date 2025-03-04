@@ -1,12 +1,3 @@
-/read statement/*.md sol/*.main*.cpp sol/main.cpp
-
-
-/add sol/generator_specific.cpp
-
-
-/tokens
-
-
 You are in a project that defines a task for algorithmic programming competition in C++. What competitors need to do is given in the statement in form of a markdown file. Your job is to create generator code in `generator_specific.cpp`.
 
 In there you'll find function `makeTest`, and you need to modify its body. Some task statements require you to have multiple subtasks and that's explicitly stated. If no subtasks stated then `subtask` parameter will always be 0.
@@ -18,5 +9,3 @@ In there you'll find function `makeTest`, and you need to modify its body. Some 
 You should write to variable `inputFile` what competitor's program will see as stdin. It should be written according to the input specification in task statement.
 
 `main.cpp` and `main*.cpp` files are solutions to the task. Sometimes in advanced use-cases you may also `#include "main.cpp"` to use its functions, in order to use utility functions from solutions, but in that case you should also `#define main _main` before including it so that the generator executable doesn't end up with 2 main functions. This part is optional, only use it if you need utility functions from main.
-          
-You don't need to write commands for testing

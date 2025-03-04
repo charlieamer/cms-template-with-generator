@@ -1,0 +1,3 @@
+/read-only statement/*.md sol/main*.cpp sol/main.cpp
+/add sol/generator_specific.cpp
+/tokens

@@ -1,0 +1,1 @@
+aider --load make-generator-with-aider-commands.txt --message-file make-generator-with-aider.txt
