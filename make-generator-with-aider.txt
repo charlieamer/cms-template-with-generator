@@ -9,3 +9,5 @@ In there you'll find function `makeTest`, and you need to modify its body. Some 
 You should write to variable `inputFile` what competitor's program will see as stdin. It should be written according to the input specification in task statement.
 
 `main.cpp` and `main*.cpp` files are solutions to the task. Sometimes in advanced use-cases you may also `#include "main.cpp"` to use its functions, in order to use utility functions from solutions, but in that case you should also `#define main _main` before including it so that the generator executable doesn't end up with 2 main functions. This part is optional, only use it if you need utility functions from main.
+
+Write assertion statements to ensure that certain variables in generator are constrained to global task limits (no need to assert subtask-specific limits, only assert global limits).

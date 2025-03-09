@@ -149,6 +149,8 @@ const char *latestFeatures[] = {
         "Added compatibility with Contester (compile with CONTESTER directive)"
 };
 
+#include <cstdint>
+
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_DEPRECATE
 #define _CRT_SECURE_NO_WARNINGS
