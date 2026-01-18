@@ -23,3 +23,4 @@ else()
   target_link_libraries(generator -static)
 endif()
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
